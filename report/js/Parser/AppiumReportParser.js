@@ -1,52 +1,23 @@
 import _ from 'lodash'
 
-export default function parse(testData) {
-
-    let result = []
-    if(testData && testData.length>0)
-    _.map(testData, (data) => {
-        _.forEach(data.testCases, (test) => {
-            let existingTest = result.find((value) => {
-                return value.name === test.testCase
-            })
-            if (_.isNil(existingTest)) {
-                let name = test.testCase
-                let testMethods = []
-                _.forEach(test.testMethod, (method) => {
-                    testMethods.push(
-                        {
-                            "methodName": method.methodName,
-                            "info": {
-                                "deviceName": data.deviceName,
-                                "deviceModel": data.deviceModel,
-                                "deviceUDID": data.deviceUDID,
-                                "deviceOS":data.deviceOS
-                            },
-                            "screenShot": method.screenShots
-                        }
-                    )
-                })
-                result.push({ name, testMethods })
-            } else {
-                _.forEach(test.testMethod, (method) => {
-                    existingTest.testMethods.push(
-                        {
-                            "methodName": method.methodName,
-                            "info": {
-                                "deviceName": data.deviceName,
-                                "deviceModel": data.deviceModel,
-                                "deviceUDID": data.deviceUDID,
-                                 "deviceOS":data.deviceOS
-                            },
-                            "screenShot": method.screenShots
-                        }
-                    )
-                })
-
-            }
-        })
-
+export function getPassFailTotalCountPerDevice(reportData) {
+    let sizeOfReportData = reportData.length
+    let testResults = _.slice(reportData, 0, sizeOfReportData - 1)
+    let testResultsPerDevice = _.groupBy(testResults, (testResult) => testResult.model)
+    let devicesPassFailCount = []
+    _.forIn(testResultsPerDevice, (tests, key) => {
+        let passTests = _.filter(tests, (test) => test.testDetails.results === "Pass")
+        let failTests = _.filter(tests, (test) => test.testDetails.results === "Fail")
+        let skipTests = _.filter(tests,(test) => test.testDetails.results === "Skip")
+        let result = {
+            device: key,
+            passCount: passTests.length,
+            failCount: failTests.length,
+            skipCount: skipTests.length
+        }
+        devicesPassFailCount.push(result)
     })
 
-    return result
+    return devicesPassFailCount
+
 }

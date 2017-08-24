@@ -4,11 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "webpack": "./node_modules/webpack"
+    "webpack": "./node_modules/webpack",
+    "test":"jest -i"
   },
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "babel-jest": "^20.0.1",
     "babel-core": "^6.25.0",
     "babel-loader": "^7.1.1",
     "babel-polyfill": "^6.23.0",
@@ -26,7 +28,12 @@
     "react-svg-loader": "^1.1.1",
     "react-tap-event-plugin": "^2.0.1",
     "svg-react-loader": "^0.4.4",
-    "webpack": "^3.1.0"
+    "webpack": "^3.1.0",
+    "jest": "20.0.1",
+    "jest-cli":"^20.0.4"
+  },
+  "transform": {
+    "^.+\\.jsx?$": "babel-jest"
   },
   "dependencies": {
     "json-loader": "^0.5.4"

@@ -1,80 +1,482 @@
-var data=[
+var data = [
   {
-    "deviceName": "generic",
-    "deviceModel": "GoogleNexus5",
-    "deviceUDID": "192.168.56.101:5555",
-    "deviceOS": "5.1",
-    "testCases": [
-      {
-        "testCase": "com.appiddum.pages.CommentPage",
-        "testMethod": [
-          {
-            "methodName": "Comments Added",
-            "screenShots": "./public/iPhone5c.png"
-          }
-        ]
-      },
-      {
-        "testCase": "com.appium.pages.LoginPage",
-        "testMethod": [
-          {
-            "methodName": "Password",
-            "screenShots": "./public/iPhone5c.png"
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678250,
+          "starttime": 1501678228,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne1.txt"
           },
-          {
-            "methodName": "UserName",
-            "screenShots": "./public/iPhone5c.png"
-          }
-        ]
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne1"
       },
-      {
-        "testCase": "com.appium.pages.WelcomePage",
-        "testMethod": [
-          {
-            "methodName": "LoggedInUser",
-            "screenShots": "./public/iPhone5c.png"
-          }
-        ]
-      }
-    ]
+      "totaltime": 1500176571,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
   },
   {
-    "deviceName": "Android",
-    "deviceModel": "GoogleNexus6",
-    "deviceUDID": "192.168.56.102:5555",
-    "deviceOS": "6.0",
-    "testCases": [
-      {
-        "testCase": "com.appium.pages.CommentPage",
-        "testMethod": [
-          {
-            "methodName": "Comments Added",
-            "screenShots": "/Users/saikrisv/git/PageObjectPatternAppium/target/screenshot/android/192.168.56.102:5555/com.appium.pages.CommentPage/Comments Added/2017-05-17T17:00:09GoogleNexus6_Android_Comments Added_results_framed.jpeg"
-          }
-        ]
-      },
-      {
-        "testCase": "com.appium.pages.LoginPage",
-        "testMethod": [
-          {
-            "methodName": "Password",
-            "screenShots": "/Users/saikrisv/git/PageObjectPatternAppium/target/screenshot/android/192.168.56.102:5555/com.appium.pages.LoginPage/Password/2017-05-17T17:02:11GoogleNexus6_Android_Password_results_framed.jpeg"
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678252,
+          "starttime": 1501678228,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne1.txt"
           },
-          {
-            "methodName": "UserName",
-            "screenShots": "/Users/saikrisv/git/PageObjectPatternAppium/target/screenshot/android/192.168.56.102:5555/com.appium.pages.LoginPage/UserName/2017-05-17T17:02:04GoogleNexus6_Android_UserName_results_framed.jpeg"
-          }
-        ]
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne1"
       },
-      {
-        "testCase": "com.appium.pages.WelcomePage",
-        "testMethod": [
-          {
-            "methodName": "LoggedInUser",
-            "screenShots": "/Users/saikrisv/git/PageObjectPatternAppium/target/screenshot/android/192.168.56.102:5555/com.appium.pages.WelcomePage/LoggedInUser/2017-05-17T17:02:25GoogleNexus6_Android_LoggedInUser_results_framed.jpeg"
-          }
-        ]
-      }
-    ]
+      "totaltime": 1500176574,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678270,
+          "starttime": 1501678251,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne10.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne10"
+      },
+      "totaltime": 1500176591,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678273,
+          "starttime": 1501678253,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne10.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne10"
+      },
+      "totaltime": 1500176595,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678293,
+          "starttime": 1501678271,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne11.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne11"
+      },
+      "totaltime": 1500176614,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678296,
+          "starttime": 1501678274,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne11.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne11"
+      },
+      "totaltime": 1500176618,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678317,
+          "starttime": 1501678293,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne6.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne6"
+      },
+      "totaltime": 1500176639,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678322,
+          "starttime": 1501678297,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne6.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne6"
+      },
+      "totaltime": 1500176644,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678337,
+          "starttime": 1501678318,
+          "results": "Fail",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne7.txt",
+              "screenShotFailure": "screenshot/android/192.168.58.102:5555/HomePageTest1/testMethodOne7/2017-08-02T18:22:19GooglePixelC_Android_testMethodOne7_failed.jpeg"
+          },
+          "exceptiontrace": "org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 267 milliseconds\nFor documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.3.1', revision: '5234b325d5', time: '2017-03-10 09:10:29 +0000'\nSystem info: host: 'insaikrisv-2.local', ip: 'fe80:0:0:0:18aa:d59a:5229:ead0%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_111'\nDriver info: io.appium.java_client.android.AndroidDriver\nCapabilities [{app=/Users/saikrisv/Documents/workspace/workspace1/TestNGParallelThreadBeforeClass/build/AndroidCalculator.apk, noSign=true, automationName=UIAutomator2, platformName=Android, udid=192.168.58.102:5555, deviceName=android, platform=ANY, systemPort=58445}]\nSession ID: fc33796a-fb44-4485-8c63-0743f5807433\n*** Element info: {Using=id, value=com.android2.calculator3:id/digit33}",
+          "methodname": "testMethodOne7"
+      },
+      "totaltime": 1500176658,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678342,
+          "starttime": 1501678323,
+          "results": "Fail",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne7.txt",
+              "screenShotFailure": "screenshot/android/192.168.58.103:5555/HomePageTest1/testMethodOne7/2017-08-02T18:22:25GoogleNexus6_Android_failed_testMethodOne7_framed.jpeg"
+          },
+          "exceptiontrace": "org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 639 milliseconds\nFor documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.3.1', revision: '5234b325d5', time: '2017-03-10 09:10:29 +0000'\nSystem info: host: 'insaikrisv-2.local', ip: 'fe80:0:0:0:18aa:d59a:5229:ead0%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_111'\nDriver info: io.appium.java_client.android.AndroidDriver\nCapabilities [{app=/Users/saikrisv/Documents/workspace/workspace1/TestNGParallelThreadBeforeClass/build/AndroidCalculator.apk, noSign=true, automationName=UIAutomator2, platformName=Android, udid=192.168.58.103:5555, deviceName=android, platform=ANY, systemPort=58659}]\nSession ID: 29386389-52aa-43ce-8f59-ab68e8320ac0\n*** Element info: {Using=id, value=com.android2.calculator3:id/digit33}",
+          "methodname": "testMethodOne7"
+      },
+      "totaltime": 1500176664,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678358,
+          "starttime": 1501678340,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne8.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne8"
+      },
+      "totaltime": 1500176680,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678365,
+          "starttime": 1501678346,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne8.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne8"
+      },
+      "totaltime": 1500176687,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678381,
+          "starttime": 1501678359,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne9.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne9"
+      },
+      "totaltime": 1500176702,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest1",
+          "endtime": 1501678389,
+          "starttime": 1501678366,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne9.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne9"
+      },
+      "totaltime": 1500176710,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest2",
+          "endtime": 1501678406,
+          "starttime": 1501678385,
+          "results": "Fail",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne1.txt",
+              "screenShotFailure": "screenshot/android/192.168.58.102:5555/HomePageTest2/testMethodOne1/2017-08-02T18:23:29GooglePixelC_Android_testMethodOne1_failed.jpeg"
+          },
+          "exceptiontrace": "org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 37 milliseconds\nFor documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.3.1', revision: '5234b325d5', time: '2017-03-10 09:10:29 +0000'\nSystem info: host: 'insaikrisv-2.local', ip: 'fe80:0:0:0:18aa:d59a:5229:ead0%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_111'\nDriver info: io.appium.java_client.android.AndroidDriver\nCapabilities [{app=/Users/saikrisv/Documents/workspace/workspace1/TestNGParallelThreadBeforeClass/build/AndroidCalculator.apk, noSign=true, automationName=UIAutomator2, platformName=Android, udid=192.168.58.102:5555, deviceName=android, platform=ANY, systemPort=59978}]\nSession ID: 2591203d-e507-4df9-bf2b-e801a8cab9b7\n*** Element info: {Using=accessibility id, value=login}",
+          "methodname": "testMethodOne1"
+      },
+      "totaltime": 1500176728,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest2",
+          "endtime": 1501678414,
+          "starttime": 1501678392,
+          "results": "Fail",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne1.txt",
+              "screenShotFailure": "screenshot/android/192.168.58.103:5555/HomePageTest2/testMethodOne1/2017-08-02T18:23:38GoogleNexus6_Android_failed_testMethodOne1_framed.jpeg"
+          },
+          "exceptiontrace": "org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 27 milliseconds\nFor documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.3.1', revision: '5234b325d5', time: '2017-03-10 09:10:29 +0000'\nSystem info: host: 'insaikrisv-2.local', ip: 'fe80:0:0:0:18aa:d59a:5229:ead0%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_111'\nDriver info: io.appium.java_client.android.AndroidDriver\nCapabilities [{app=/Users/saikrisv/Documents/workspace/workspace1/TestNGParallelThreadBeforeClass/build/AndroidCalculator.apk, noSign=true, automationName=UIAutomator2, platformName=Android, udid=192.168.58.103:5555, deviceName=android, platform=ANY, systemPort=60233}]\nSession ID: f293cbf7-3291-4448-9eed-597f33355a4e\n*** Element info: {Using=accessibility id, value=login}",
+          "methodname": "testMethodOne1"
+      },
+      "totaltime": 1500176736,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest2",
+          "endtime": 1501678431,
+          "starttime": 1501678409,
+          "results": "Fail",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne2.txt",
+              "screenShotFailure": "screenshot/android/192.168.58.102:5555/HomePageTest2/testMethodOne2/2017-08-02T18:23:54GooglePixelC_Android_testMethodOne2_failed.jpeg"
+          },
+          "exceptiontrace": "org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 37 milliseconds\nFor documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.3.1', revision: '5234b325d5', time: '2017-03-10 09:10:29 +0000'\nSystem info: host: 'insaikrisv-2.local', ip: 'fe80:0:0:0:18aa:d59a:5229:ead0%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_111'\nDriver info: io.appium.java_client.android.AndroidDriver\nCapabilities [{app=/Users/saikrisv/Documents/workspace/workspace1/TestNGParallelThreadBeforeClass/build/AndroidCalculator.apk, noSign=true, automationName=UIAutomator2, platformName=Android, udid=192.168.58.102:5555, deviceName=android, platform=ANY, systemPort=60505}]\nSession ID: 2b9431cb-6f41-4fea-9396-357b4b6452f1\n*** Element info: {Using=accessibility id, value=login}",
+          "methodname": "testMethodOne2"
+      },
+      "totaltime": 1500176753,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest2",
+          "endtime": 1501678442,
+          "starttime": 1501678419,
+          "results": "Fail",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne2.txt",
+              "screenShotFailure": "screenshot/android/192.168.58.103:5555/HomePageTest2/testMethodOne2/2017-08-02T18:24:05GoogleNexus6_Android_failed_testMethodOne2_framed.jpeg"
+          },
+          "exceptiontrace": "org.openqa.selenium.NoSuchElementException: An element could not be located on the page using the given search parameters. (WARNING: The server did not provide any stacktrace information)\nCommand duration or timeout: 34 milliseconds\nFor documentation on this error, please visit: http://seleniumhq.org/exceptions/no_such_element.html\nBuild info: version: '3.3.1', revision: '5234b325d5', time: '2017-03-10 09:10:29 +0000'\nSystem info: host: 'insaikrisv-2.local', ip: 'fe80:0:0:0:18aa:d59a:5229:ead0%en0', os.name: 'Mac OS X', os.arch: 'x86_64', os.version: '10.12.5', java.version: '1.8.0_111'\nDriver info: io.appium.java_client.android.AndroidDriver\nCapabilities [{app=/Users/saikrisv/Documents/workspace/workspace1/TestNGParallelThreadBeforeClass/build/AndroidCalculator.apk, noSign=true, automationName=UIAutomator2, platformName=Android, udid=192.168.58.103:5555, deviceName=android, platform=ANY, systemPort=60757}]\nSession ID: 5b443adb-90ad-4760-a0ec-bc4947472f98\n*** Element info: {Using=accessibility id, value=login}",
+          "methodname": "testMethodOne2"
+      },
+      "totaltime": 1500176764,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest3",
+          "endtime": 1501678465,
+          "starttime": 1501678439,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne3.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne3"
+      },
+      "totaltime": 1500176787,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest3",
+          "endtime": 1501678477,
+          "starttime": 1501678450,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne3.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne3"
+      },
+      "totaltime": 1500176798,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest3",
+          "endtime": 1501678490,
+          "starttime": 1501678466,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodOne4.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne4"
+      },
+      "totaltime": 1500176811,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest3",
+          "endtime": 1501678503,
+          "starttime": 1501678477,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodOne4.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodOne4"
+      },
+      "totaltime": 1500176824,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest4",
+          "endtime": 1501678514,
+          "starttime": 1501678494,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodFour.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodFour"
+      },
+      "totaltime": 1500176835,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest4",
+          "endtime": 1501678528,
+          "starttime": 1501678506,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodFour.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodFour"
+      },
+      "totaltime": 1500176850,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest5",
+          "endtime": 1501678538,
+          "starttime": 1501678517,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.102:5555__testMethodFive5.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodFive5"
+      },
+      "totaltime": 1500176860,
+      "model": "GooglePixelC_Android",
+      "id": "192.168.58.102:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+      "testDetails": {
+          "classname": "HomePageTest5",
+          "endtime": 1501678554,
+          "starttime": 1501678531,
+          "results": "Pass",
+          "logs": {
+              "adbLogs": "adblogs/192.168.58.103:5555__testMethodFive5.txt"
+          },
+          "exceptiontrace": "null",
+          "methodname": "testMethodFive5"
+      },
+      "totaltime": 1500176875,
+      "model": "GoogleNexus6_Android",
+      "id": "192.168.58.103:5555",
+      "version": "6.0",
+      "platform": "ANDROID"
+  },
+  {
+    "userMetaData": {
+      "Appium": "1.6.6.beta4",
+      "RunType" :"Parallel"
+    }
   }
 ]
