@@ -4,13 +4,13 @@
       "platformName": "android",
       "noSign": true,
       "deviceName": "android",
-      "app": "/Users/saikrisv/Documents/VodQaAdvancedAppium/VodQA.apk"
+      "app": "/Users/bsneha/Documents/AndroidCalculator.apk"
     }
   },
   {
     "iOS": {
       "platformName": "iOS",
-      "app": "/Users/saikrisv/git/new_appium_parallel/AppiumTestDistribution/VodQAReactNative.zip",
+      "app": "/Users/saikrisv/git/new_appium_parallel/AndroidCalculator/VodQAReactNative.zip",
       "wdaLaunchTimeout": "80000",
       "wdaConnectionTimeout": "80000",
       "preventWDAAttachments": true,

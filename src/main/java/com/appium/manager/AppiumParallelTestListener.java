@@ -234,7 +234,7 @@ public final class AppiumParallelTestListener
         FileWriter file = null;
         try {
             file = new FileWriter(System.getProperty("user.dir")
-                    + "/target/finalReport.json");
+                    + "/target/finalReport.js");
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -252,7 +252,7 @@ public final class AppiumParallelTestListener
         try {
             userLogs.put("Appium","1.6.6.beta4");
             jsonArray.put(new JSONObject().put("userMetaData",userLogs));
-            file.write(jsonArray.toString());
+            file.write("var data="+jsonArray.toString());
             file.close();
         } catch (IOException e) {
             e.printStackTrace();

@@ -32,7 +32,7 @@ public class HomePageTest3  {
             "ThreadName: " + Thread.currentThread().getName() + Thread.currentThread()
                 .getStackTrace()[1].getClassName());
         Thread.sleep(3000);
-        getDriver().findElement(By.id("com.android2.calculator3:id/cling_dismiss")).click();
+        getDriver().findElement(By.id("com.android2.calculator3:id/cling_dismisss")).click();
         new ScreenShotManager().captureScreenShot("LoginPage--1");
         getDriver().findElement(By.id("com.android2.calculator3:id/digit4")).click();
         getDriver().findElement(By.id("com.android2.calculator3:id/minus")).click();
@@ -41,20 +41,20 @@ public class HomePageTest3  {
         getDriver().findElement(By.id("com.android2.calculator3:id/equal")).click();
     }
 
-    @Test
-    public void testMethodOne4()
-            throws InterruptedException, IOException {
-
-        System.out.println(
-                "ThreadName: " + Thread.currentThread().getName() + Thread.currentThread()
-                        .getStackTrace()[1].getClassName());
-        Thread.sleep(3000);
-        getDriver().findElement(By.id("com.android2.calculator3:id/cling_dismiss")).click();
-        getDriver().findElement(By.id("com.android2.calculator3:id/digit4")).click();
-        getDriver().findElement(By.id("com.android2.calculator3:id/minus")).click();
-        getDriver().findElement(By.id("com.android2.calculator3:id/digit9")).click();
-        new ScreenShotManager().captureScreenShot("LoginPage1");
-        getDriver().findElement(By.id("com.android2.calculator3:id/equal")).click();
-        //getDriver().close();
-    }
+//    @Test
+//    public void testMethodOne4()
+//            throws InterruptedException, IOException {
+//
+//        System.out.println(
+//                "ThreadName: " + Thread.currentThread().getName() + Thread.currentThread()
+//                        .getStackTrace()[1].getClassName());
+//        Thread.sleep(3000);
+//        getDriver().findElement(By.id("com.android2.calculator3:id/cling_dismiss")).click();
+//        getDriver().findElement(By.id("com.android2.calculator3:id/digit4")).click();
+//        getDriver().findElement(By.id("com.android2.calculator3:id/minus")).click();
+//        getDriver().findElement(By.id("com.android2.calculator3:id/digit9")).click();
+//        new ScreenShotManager().captureScreenShot("LoginPage1");
+//        getDriver().findElement(By.id("com.android2.calculator3:id/equal")).click();
+//        //getDriver().close();
+//    }
 }
