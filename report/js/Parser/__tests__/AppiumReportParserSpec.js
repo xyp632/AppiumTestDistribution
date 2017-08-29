@@ -1,9 +1,9 @@
 import _ from 'lodash'
-import { getPassFailTotalCountPerDevice } from '../AppiumReportParser'
+import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests } from '../AppiumReportParser'
 
 describe('Parser', () => {
     describe('Parallel', () => {
-        var data = [
+        let data = [
             {
                 "testDetails": {
                     "classname": "HomePageTest1",
@@ -499,10 +499,14 @@ describe('Parser', () => {
             expect(passFailTotalCountPerDevice[1].skipCount).toBe(0)
     
         })
+
+        it('should get total time required to run all tests ',()=>{
+            console.log(getTotalTimeRequiredToRunTests(data))
+        })
     })
 
     describe('Distribute', () => {
-        var data = [
+        let data = [
             {
                 "testDetails": {
                     "classname": "HomePageTest2",

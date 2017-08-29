@@ -1,4 +1,9 @@
 import _ from 'lodash'
+function secondsToMinutes(time) {
+    let minutes = Math.floor(time / 60);
+    let seconds= time - minutes * 60;
+    return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
+}
 
 export function getPassFailTotalCountPerDevice(reportData) {
     let sizeOfReportData = reportData.length
@@ -8,7 +13,7 @@ export function getPassFailTotalCountPerDevice(reportData) {
     _.forIn(testResultsPerDevice, (tests, key) => {
         let passTests = _.filter(tests, (test) => test.testDetails.results === "Pass")
         let failTests = _.filter(tests, (test) => test.testDetails.results === "Fail")
-        let skipTests = _.filter(tests,(test) => test.testDetails.results === "Skip")
+        let skipTests = _.filter(tests, (test) => test.testDetails.results === "Skip")
         let result = {
             device: key,
             passCount: passTests.length,
@@ -20,4 +25,14 @@ export function getPassFailTotalCountPerDevice(reportData) {
 
     return devicesPassFailCount
 
+}
+
+export function getTotalTimeRequiredToRunTests(reportData){
+    let sizeOfReportData = reportData.length
+    let testResults = _.slice(reportData, 0, sizeOfReportData - 1)
+    let totalTime=0
+    _.map(testResults, (testResult)=>{
+        totalTime=testResult.totaltime
+    })
+   return secondsToMinutes( totalTime)
 }
