@@ -14,8 +14,10 @@ export function getPassFailTotalCountPerDevice(reportData) {
         let passTests = _.filter(tests, (test) => test.testDetails.results === "Pass")
         let failTests = _.filter(tests, (test) => test.testDetails.results === "Fail")
         let skipTests = _.filter(tests, (test) => test.testDetails.results === "Skip")
+
         let result = {
             device: key,
+            platform: passTests ? passTests[0].platform : failTests ? failTests[0].platform : "",
             passCount: passTests.length,
             failCount: failTests.length,
             skipCount: skipTests.length
@@ -49,6 +51,12 @@ export function getPassFailTotalCount(devicesPassFailCount) {
         skipCount
     }
 
+}
+
+export function getUserMetaData(reportData) {
+    let sizeOfReportData = reportData.length
+    let userMetaData = _.slice(reportData, sizeOfReportData - 1, sizeOfReportData)
+    return userMetaData[0].userMetaData
 }
 
 

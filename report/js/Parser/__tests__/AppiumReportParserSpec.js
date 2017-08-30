@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests,getPassFailTotalCount } from '../AppiumReportParser'
+import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests,getPassFailTotalCount,getUserMetaData } from '../AppiumReportParser'
 
 describe('Parser', () => {
     describe('Parallel', () => {
@@ -490,10 +490,12 @@ describe('Parser', () => {
         it('should get pass, fail, skip test count per device', () => {
             let passFailTotalCountPerDevice = getPassFailTotalCountPerDevice(data)
             expect(passFailTotalCountPerDevice[0].device).toBe("GooglePixelC_Android")
+            expect(passFailTotalCountPerDevice[0].platform).toBe("ANDROID")
             expect(passFailTotalCountPerDevice[0].passCount).toBe(10)
             expect(passFailTotalCountPerDevice[0].failCount).toBe(3)
             expect(passFailTotalCountPerDevice[0].skipCount).toBe(0)
             expect(passFailTotalCountPerDevice[1].device).toBe("GoogleNexus6_Android")
+            expect(passFailTotalCountPerDevice[1].platform).toBe("ANDROID")
             expect(passFailTotalCountPerDevice[1].passCount).toBe(10)
             expect(passFailTotalCountPerDevice[1].failCount).toBe(3)
             expect(passFailTotalCountPerDevice[1].skipCount).toBe(0)
@@ -503,6 +505,12 @@ describe('Parser', () => {
         it('should get total time required to run all tests ',()=>{
             console.log(getTotalTimeRequiredToRunTests(data))
         })
+
+        it('should get user meta data', () => {
+            let userMetaData=getUserMetaData(data)
+            expect(JSON.stringify(userMetaData)).toBe("{\"Appium\":\"1.6.6.beta4\",\"RunType\":\"Parallel\"}")
+        })
+
     })
 
     describe('Distribute', () => {
@@ -684,6 +692,7 @@ describe('Parser', () => {
         it('should get pass, fail, skip test count per device', () => {
             let passFailTotalCountPerDevice = getPassFailTotalCountPerDevice(data)
             expect(passFailTotalCountPerDevice[0].device).toBe("GooglePixelC_Android")
+            expect(passFailTotalCountPerDevice[0].platform).toBe("ANDROID")
             expect(passFailTotalCountPerDevice[0].passCount).toBe(6)
             expect(passFailTotalCountPerDevice[0].failCount).toBe(3)
             expect(passFailTotalCountPerDevice[0].skipCount).toBe(0)
