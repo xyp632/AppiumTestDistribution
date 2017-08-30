@@ -13,3 +13,4 @@ testng.xml
 *.iml
 *.log
 !report/*.html
+!report/package.json
