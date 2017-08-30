@@ -1,7 +1,7 @@
 import _ from 'lodash'
 function secondsToMinutes(time) {
     let minutes = Math.floor(time / 60);
-    let seconds= time - minutes * 60;
+    let seconds = time - minutes * 60;
     return minutes + ":" + (seconds < 10 ? '0' : '') + seconds;
 }
 
@@ -27,12 +27,29 @@ export function getPassFailTotalCountPerDevice(reportData) {
 
 }
 
-export function getTotalTimeRequiredToRunTests(reportData){
+export function getTotalTimeRequiredToRunTests(reportData) {
     let sizeOfReportData = reportData.length
     let testResults = _.slice(reportData, 0, sizeOfReportData - 1)
-    let totalTime=0
-    _.map(testResults, (testResult)=>{
-        totalTime=testResult.totaltime
+    let totalTime = 0
+    _.map(testResults, (testResult) => {
+        totalTime = testResult.totaltime
     })
-   return secondsToMinutes( totalTime)
+    return secondsToMinutes(totalTime)
 }
+
+export function getPassFailTotalCount(devicesPassFailCount) {
+
+    let passCount = _.sumBy(devicesPassFailCount, function (o) { return o.passCount; });
+    let failCount = _.sumBy(devicesPassFailCount, function (o) { return o.failCount; });
+    let skipCount = _.sumBy(devicesPassFailCount, function (o) { return o.skipCount; });
+
+    return {
+        passCount,
+        failCount,
+        skipCount
+    }
+
+}
+
+
+

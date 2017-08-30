@@ -1,5 +1,5 @@
 import _ from 'lodash'
-import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests } from '../AppiumReportParser'
+import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests,getPassFailTotalCount } from '../AppiumReportParser'
 
 describe('Parser', () => {
     describe('Parallel', () => {
@@ -688,5 +688,24 @@ describe('Parser', () => {
             expect(passFailTotalCountPerDevice[0].failCount).toBe(3)
             expect(passFailTotalCountPerDevice[0].skipCount).toBe(0)
         })
+    })
+
+    it('get total fail pass skip count', () => {
+        let data = [{
+            device: 'GooglePixelC_Android',
+            passCount: 10,
+            failCount: 3,
+            skipCount: 0
+        },
+        {
+            device: 'GoogleNexus6_Android',
+            passCount: 9,
+            failCount: 3,
+            skipCount: 1
+        }]
+        let result=getPassFailTotalCount(data)
+        expect(result.passCount).toBe(19)
+        expect(result.failCount).toBe(6)
+        expect(result.skipCount).toBe(1)
     })
 })
