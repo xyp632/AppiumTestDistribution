@@ -12,9 +12,4 @@ testng.xml
 *.html
 *.iml
 *.log
-!webContent/app/package.json
-!webContent/**/**/**/*.json
-!webContent/app/public/index.html
-/target/
-webContent/app/public/screenshot
-webContent/app/src/data/Report.json
+!report/*.html
