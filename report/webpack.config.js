@@ -39,7 +39,8 @@ module.exports = {
             {
                 test: /\.css$/,
                 use: [
-                    'css-loader'
+                  { loader: "style-loader" },
+                  { loader: "css-loader" }
                 ]
             }
 
@@ -48,5 +49,4 @@ module.exports = {
     stats: {
         colors: true
     },
-    plugins: pluginsApplied
 };

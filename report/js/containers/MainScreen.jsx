@@ -3,11 +3,8 @@
 import React, { Component } from 'react';
 import Header from '../components/header/Header.jsx'
 import Drawer from '../components/drawer/Drawer.jsx'
-import ReportScreen from './ReportScreen.jsx'
-import { Row, Col } from 'react-flexbox-grid'
-import parse from '../Parser/AppiumReportParser'
 import injectTapEventPlugin from 'react-tap-event-plugin'
-import $ from 'jquery'
+import './Mainscreen.css'
 
 injectTapEventPlugin();
 
@@ -18,17 +15,13 @@ class MainScreen extends Component {
         this.handleReportContent = this.handleReportContent.bind(this)
         this.handleDrawerState = this.handleDrawerState.bind(this)
         this.state = {
-            isDrawerActive: true,
+            isDrawerActive: false,
             item: []
         }
 
         this.parsedData = []
     }
-    componentWillMount() {
-        this.parsedData = parse(data)
-        this.setState({ item: this.parsedData[0] })
-
-    }
+   
 
     handleDrawerState() { this.setState({ isDrawerActive: !this.state.isDrawerActive }) }
 
@@ -41,16 +34,10 @@ class MainScreen extends Component {
         return (
             <div>
                 <Header handleDrawerVisibility={this.handleDrawerState} />
-                <Row>
-                    <Col sm={2}>
-                        <Drawer open={this.state.isDrawerActive}
-                            handleReportContent={(item) => this.handleReportContent(item)}
-                            content={this.parsedData} />
-                    </Col>
-                    <Col sm={10}>
-                        <ReportScreen testMethods={this.state.item.testMethods ? this.state.item.testMethods : []} />
-                    </Col>
-                </Row>
+                <Drawer open={this.state.isDrawerActive}
+                    handleReportContent={(item) => this.handleReportContent(item)}
+                    content={this.parsedData} />
+                
             </div>
         )
     }
