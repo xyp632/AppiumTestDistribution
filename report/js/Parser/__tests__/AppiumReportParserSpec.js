@@ -1,7 +1,8 @@
 import _ from 'lodash'
-import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests,getPassFailTotalCount,getUserMetaData } from '../AppiumReportParser'
+import { getPassFailTotalCountPerDevice,getTotalTimeRequiredToRunTests,getPassFailTotalCount,getUserMetaData,getAllTheTestDetailsRunOnASpecificDevice,readLogFileContent} from '../AppiumReportParser'
 
 describe('Parser', () => {
+  
     describe('Parallel', () => {
         let data = [
             {
@@ -511,6 +512,24 @@ describe('Parser', () => {
             expect(JSON.stringify(userMetaData)).toBe("{\"Appium\":\"1.6.6.beta4\",\"RunType\":\"Parallel\"}")
         })
 
+        it('should get all tests run on a device', () => {
+            let testDetailsRunOnGooglePixelC_Android= getAllTheTestDetailsRunOnASpecificDevice("GooglePixelC_Android",data)
+            expect(testDetailsRunOnGooglePixelC_Android.length).toBe(13)
+            expect(testDetailsRunOnGooglePixelC_Android[0]).toMatchObject(data[0])
+            expect(testDetailsRunOnGooglePixelC_Android[1]).toMatchObject(data[2])
+            expect(testDetailsRunOnGooglePixelC_Android[2]).toMatchObject(data[4])
+            expect(testDetailsRunOnGooglePixelC_Android[3]).toMatchObject(data[6])
+            expect(testDetailsRunOnGooglePixelC_Android[4]).toMatchObject(data[8])
+            expect(testDetailsRunOnGooglePixelC_Android[5]).toMatchObject(data[10])
+            expect(testDetailsRunOnGooglePixelC_Android[6]).toMatchObject(data[12])
+            expect(testDetailsRunOnGooglePixelC_Android[7]).toMatchObject(data[14])
+            expect(testDetailsRunOnGooglePixelC_Android[8]).toMatchObject(data[16])
+            expect(testDetailsRunOnGooglePixelC_Android[9]).toMatchObject(data[18])
+            expect(testDetailsRunOnGooglePixelC_Android[10]).toMatchObject(data[20])
+            expect(testDetailsRunOnGooglePixelC_Android[11]).toMatchObject(data[22])
+            expect(testDetailsRunOnGooglePixelC_Android[12]).toMatchObject(data[24])
+        })
+
     })
 
     describe('Distribute', () => {
@@ -585,7 +604,7 @@ describe('Parser', () => {
                     "methodname": "testMethodOne1"
                 },
                 "totaltime": 1500178112,
-                "model": "GooglePixelC_Android",
+                "model": "GooglePixelD_Android",
                 "id": "192.168.58.102:5555",
                 "version": "6.0",
                 "platform": "ANDROID"
@@ -693,10 +712,30 @@ describe('Parser', () => {
             let passFailTotalCountPerDevice = getPassFailTotalCountPerDevice(data)
             expect(passFailTotalCountPerDevice[0].device).toBe("GooglePixelC_Android")
             expect(passFailTotalCountPerDevice[0].platform).toBe("ANDROID")
-            expect(passFailTotalCountPerDevice[0].passCount).toBe(6)
+            expect(passFailTotalCountPerDevice[0].passCount).toBe(5)
             expect(passFailTotalCountPerDevice[0].failCount).toBe(3)
             expect(passFailTotalCountPerDevice[0].skipCount).toBe(0)
         })
+
+        it('should get all tests run on a device', () => {
+            let testDetailsRunOnGooglePixelC_Android= getAllTheTestDetailsRunOnASpecificDevice("GooglePixelC_Android",data)
+            expect(testDetailsRunOnGooglePixelC_Android.length).toBe(8)
+            expect(testDetailsRunOnGooglePixelC_Android[0]).toMatchObject(data[0])
+            expect(testDetailsRunOnGooglePixelC_Android[1]).toMatchObject(data[1])
+            expect(testDetailsRunOnGooglePixelC_Android[2]).toMatchObject(data[2])
+            expect(testDetailsRunOnGooglePixelC_Android[3]).toMatchObject(data[4])
+            expect(testDetailsRunOnGooglePixelC_Android[4]).toMatchObject(data[5])
+            expect(testDetailsRunOnGooglePixelC_Android[5]).toMatchObject(data[6])
+            expect(testDetailsRunOnGooglePixelC_Android[6]).toMatchObject(data[7])
+            expect(testDetailsRunOnGooglePixelC_Android[7]).toMatchObject(data[8])
+        })
+    
+    })
+
+    it('should be able to read the content of file and return', () => {
+        let path=__dirname
+        let content = readLogFileContent(path+'/resource/log.txt')
+        expect(content).toBe("something")
     })
 
     it('get total fail pass skip count', () => {

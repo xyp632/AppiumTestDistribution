@@ -1,4 +1,6 @@
 import _ from 'lodash'
+import fs from 'file-system'
+
 function secondsToMinutes(time) {
     let minutes = Math.floor(time / 60);
     let seconds = time - minutes * 60;
@@ -57,6 +59,18 @@ export function getUserMetaData(reportData) {
     let sizeOfReportData = reportData.length
     let userMetaData = _.slice(reportData, sizeOfReportData - 1, sizeOfReportData)
     return userMetaData[0].userMetaData
+}
+
+export function getAllTheTestDetailsRunOnASpecificDevice(deviceName, reportData) {
+    let sizeOfReportData = reportData.length
+    let testResults = _.slice(reportData, 0, sizeOfReportData - 1)
+    return _.filter(testResults, (testResult) => {
+        return testResult.model === deviceName
+    })
+}
+
+export function readLogFileContent(path){
+    return fs.readFileSync(path, "utf-8");
 }
 
 
