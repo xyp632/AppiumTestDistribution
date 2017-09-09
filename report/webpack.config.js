@@ -11,7 +11,7 @@ console.log(__dirname)
 module.exports = {
     devtool:'inline-source-map',
     entry: {
-        app: ['babel-polyfill', 'app'],
+        app: ['babel-polyfill', 'index'],
         vendor:['react','react-dom','material-ui','react-flexbox-grid','react-tap-event-plugin','lodash']
     },
     output: {
@@ -20,7 +20,7 @@ module.exports = {
     },
     resolve: {
         alias: {
-            app:  __dirname +'/js/index.js'
+            index:  __dirname +'/js/index.js'
         },
         extensions: ['.js', '.jsx']
     },
