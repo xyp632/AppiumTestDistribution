@@ -10,6 +10,12 @@ const TestInfoWrapper =  styled.div`
     display: flex;
     justify-content: space-around;
 `
+const TableGrid = styled.section`
+    margin: 24px;
+    display: grid;
+    grid-template-columns: 1fr 1fr ;
+    grid-gap: 12px;
+`
 
 const enviromentdata = [
     {
@@ -56,8 +62,10 @@ class Dashboard extends Component {
                         header="End time"
                         value="8:25" />
                 </TestInfoWrapper>
-                <Divider />
-                <EnviromentTable details={enviromentdata}/>
+                <TableGrid>
+                    <EnviromentTable details={enviromentdata}/>
+                    <EnviromentTable details={enviromentdata}/>
+                </TableGrid>
             </div>
         )
     }

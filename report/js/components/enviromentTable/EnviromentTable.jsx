@@ -21,7 +21,8 @@ const ContentRow = styled.div`
     display: flex;
 `
 const ContentRowData = styled.p`
-    color: #313131;
+    color: ${props => props.value ? '#89999d' : '#313131'};
+    font-weight: ${props => props.value ? 'bold' : 'normal'};
     flex: 1;
 `
 
@@ -36,7 +37,7 @@ const EnviromentTable = ({ details }) => {
                 return (
                     <ContentRow key={i}>
                         <ContentRowData>{detail.name}</ContentRowData>
-                        <ContentRowData>{detail.value}</ContentRowData>
+                        <ContentRowData value>{detail.value}</ContentRowData>
                     </ContentRow>
                 )
             })}
