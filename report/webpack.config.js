@@ -9,6 +9,7 @@ var pluginsApplied = [
 ]
 console.log(__dirname)
 module.exports = {
+    node : { fs: 'empty' },
     devtool:'inline-source-map',
     entry: {
         app: ['babel-polyfill', 'index'],

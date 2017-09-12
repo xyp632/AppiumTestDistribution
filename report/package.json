@@ -19,6 +19,7 @@
     "babel-preset-react": "^6.24.1",
     "babel-preset-stage-1": "^6.24.1",
     "css-loader": "^0.28.4",
+    "file-system": "^2.2.2",
     "jest": "20.0.1",
     "jest-cli": "^20.0.4",
     "jquery": "^3.2.1",
