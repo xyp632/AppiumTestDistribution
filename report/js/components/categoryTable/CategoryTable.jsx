@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types'
 import Paper from 'material-ui/Paper'
+import FontIcon from 'material-ui/FontIcon'
 import styled from 'styled-components'
 
 
@@ -22,8 +23,14 @@ const ContentRow = styled.div`
     grid-template-columns:2fr 1fr 1fr 1fr;
 `
 const ContentRowData = styled.p`
-    color: ${props => props.value ? '#89999d' : '#313131'};
-    font-weight: ${props => props.value ? 'bold' : 'normal'};
+    color: #89999d;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+
+    & span {
+        margin-right: 8px;
+    }
 `
 
 const CategoryTable = ({ details }) => {
@@ -36,9 +43,17 @@ const CategoryTable = ({ details }) => {
                 <HeaderContent>Skipped</HeaderContent>
             </Header>
             {details.map((detail, i)=> {
+                const iconName = detail.platform === 'ANDROID' ? 'android' : 'phonelink setup'
+                const iconColor = detail.platform === 'ANDROID' ? '#A4CA39' : '#444444'
                 return (
                     <ContentRow key={i}>
-                        <ContentRowData>{detail.device}</ContentRowData>
+                        <ContentRowData>
+                            <FontIcon className="material-icons"
+                                color={iconColor}>
+                                {iconName}
+                            </FontIcon>
+                            <p>{detail.device}</p>
+                        </ContentRowData>
                         <ContentRowData value>{detail.passCount}</ContentRowData>
                         <ContentRowData value>{detail.failCount}</ContentRowData>
                         <ContentRowData value>{detail.skipCount}</ContentRowData>
