@@ -5,6 +5,7 @@ import TestInfo from '../components/testInfo/TestInfo.jsx'
 import Divider from 'material-ui/Divider'
 import styled from 'styled-components'
 import EnviromentTable from '../components/enviromentTable/EnviromentTable.jsx'
+import CategoryTable from '../components/categoryTable/CategoryTable'
 import { getPassFailTotalCountPerDevice, getPassFailTotalCount, getUserMetaData } from '../Parser/AppiumReportParser.js'
 import _ from 'lodash'
 const TestInfoWrapper = styled.div`
@@ -18,28 +19,6 @@ const TableGrid = styled.section`
     grid-gap: 12px;
 `
 
-// const enviromentdata = [
-//     {
-//         name: 'Selenium Java Version',
-//         value: '3.3.1'
-//     },
-//     {
-//         name: 'Environment',
-//         value: 'Prod'
-//     },
-//     {
-//         name: 'AppiumClient',
-//         value: '5.0.0-BETA6'
-//     },
-//     {
-//         name: 'AppiumServer',
-//         value: '1.6.5-beta'
-//     },
-//     {
-//         name: 'Runner',
-//         value: 'Parallel'
-//     }
-// ]
 class Dashboard extends Component {
 
     render() {
@@ -76,7 +55,7 @@ class Dashboard extends Component {
                 </TestInfoWrapper>
                 <TableGrid>
                     <EnviromentTable details={enviromentdata} />
-                    <EnviromentTable details={enviromentdata} />
+                    <CategoryTable details={passFailTotalCountPerDevice} />
                 </TableGrid>
             </div>
         )
