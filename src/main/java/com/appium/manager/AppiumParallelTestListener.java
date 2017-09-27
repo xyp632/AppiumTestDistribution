@@ -105,11 +105,10 @@ public final class AppiumParallelTestListener
                         TimeUnit.MILLISECONDS.toSeconds(testResult.getEndMillis()),
                         TimeUnit.MILLISECONDS.toSeconds(testResult.getEndMillis()
                                 - TimeUnit.MILLISECONDS.toSeconds(testResult.getStartMillis())));
-
                 sync(status.toString());
-            }
-            if (method.isTestMethod()) {
-                appiumDriverManager.stopAppiumDriver();
+                if (method.isTestMethod()) {
+                    appiumDriverManager.stopAppiumDriver();
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();
