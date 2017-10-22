@@ -2,10 +2,18 @@ package com.appium.manager;
 
 import com.annotation.values.Description;
 import com.annotation.values.SkipIf;
-import com.appium.utils.GenerateReportJson;
 
+import com.appium.utils.GenerateReportJson;
 import com.appium.utils.ScreenShotManager;
-import org.testng.*;
+
+import org.testng.IClassListener;
+import org.testng.IInvokedMethod;
+import org.testng.IInvokedMethodListener;
+import org.testng.ISuite;
+import org.testng.ISuiteListener;
+import org.testng.ITestClass;
+import org.testng.ITestResult;
+import org.testng.SkipException;
 
 import java.io.IOException;
 

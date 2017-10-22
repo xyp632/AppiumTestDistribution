@@ -1,22 +1,29 @@
 package com.appium.utils;
 
-
-import com.annotation.values.Description;
 import com.appium.manager.AppiumDriverManager;
 import com.appium.manager.DeviceManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-import org.testng.*;
+import org.testng.IInvokedMethod;
+import org.testng.ISuite;
+import org.testng.ISuiteResult;
+import org.testng.ITestContext;
+import org.testng.ITestResult;
 import org.testng.annotations.Test;
+
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.Duration;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class GenerateReportJson {
 
@@ -134,7 +141,7 @@ public class GenerateReportJson {
         try {
             if (testResult.getStatus() == ITestResult.SUCCESS
                     || testResult.getStatus() == ITestResult.FAILURE) {
-                if(testResult.getStatus() == ITestResult.FAILURE) {
+                if (testResult.getStatus() == ITestResult.FAILURE) {
                     screenShotManager.captureScreenShot(2,
                             testResult.getClass().getSimpleName(),
                             testResult.getMethod().getMethodName());
@@ -150,7 +157,8 @@ public class GenerateReportJson {
                     }
                 }
                 String testDescription;
-                String description = method.getTestMethod().getMethod().getAnnotation(Test.class).description();
+                String description = method.getTestMethod().getMethod()
+                        .getAnnotation(Test.class).description();
                 if (description.isEmpty()) {
                     testDescription = method.getTestMethod().getMethodName();
                 } else {

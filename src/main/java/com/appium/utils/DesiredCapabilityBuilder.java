@@ -44,8 +44,8 @@ public class DesiredCapabilityBuilder {
     public DesiredCapabilities buildDesiredCapability(String platform,
                                                       String jsonPath) throws Exception {
         final boolean[] flag = {false};
-        System.out.println("DeviceMappy-----" + DeviceAllocationManager.getInstance().deviceMapping);
-        Object port = ((HashMap) DeviceAllocationManager.getInstance().deviceMapping.get(DeviceManager
+        Object port = ((HashMap) DeviceAllocationManager.getInstance()
+                .deviceMapping.get(DeviceManager
                 .getDeviceUDID())).get("port");
         DesiredCapabilities desiredCapabilities = new DesiredCapabilities();
         JSONArray jsonParsedObject = new JsonParser(jsonPath).getJsonParsedObject();
