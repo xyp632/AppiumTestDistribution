@@ -42,7 +42,7 @@ public class DesiredCapabilityBuilder {
         return desiredCapabilitiesThreadLocal.get();
     }
 
-    public void buildDesiredCapability(String platform,
+    public DesiredCapabilities buildDesiredCapability(String platform,
                                                       String jsonPath) throws Exception {
         final boolean[] flag = {false};
         System.out.println("DeviceMappy-----" + DeviceAllocationManager
@@ -129,6 +129,7 @@ public class DesiredCapabilityBuilder {
         desiredCapabilities.setCapability(MobileCapabilityType.UDID,
                 DeviceManager.getDeviceUDID());
         desiredCapabilitiesThreadLocal.set(desiredCapabilities);
+        return desiredCapabilities;
     }
 
     public void appPackage(DesiredCapabilities desiredCapabilities) {
