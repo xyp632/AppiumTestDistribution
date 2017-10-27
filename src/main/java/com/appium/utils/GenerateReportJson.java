@@ -1,7 +1,6 @@
 package com.appium.utils;
 
 
-import com.annotation.values.Description;
 import com.appium.manager.AppiumDriverManager;
 import com.appium.manager.DeviceManager;
 import org.json.JSONArray;
@@ -21,8 +20,7 @@ import java.util.*;
 public class GenerateReportJson {
 
     AppiumDriverManager appiumDriverManager;
-
-    public List<String> syncal =
+    public static List<String> syncal =
             Collections.synchronizedList(new ArrayList<String>());
 
     public static Map<String, String> userLogs =
@@ -93,6 +91,7 @@ public class GenerateReportJson {
         JSONObject jsonReport = new JSONObject();
         JSONArray jsonTest = new JSONArray();
         JSONParser parser = new JSONParser();
+
         for (int i = 0; i < syncal.size(); i++) {
             try {
                 jsonTest.put(parser.parse(syncal.get(i)));
@@ -106,6 +105,21 @@ public class GenerateReportJson {
 
         jsonReport.put("summary", summaryDetails);
         jsonReport.put("tests", jsonTest);
+        JSONArray jsonArray = new JSONArray();
+        JSONParser jsonParser = new JSONParser();
+        try {
+            ScreenShotManager.synmap.forEach((s, s2) -> {
+                try {
+                    jsonArray.put(jsonParser.parse(s2));
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+            });
+            jsonReport.put("Screenshots",jsonArray);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             userLogs.put("Appium", "1.6.6.beta4");
             jsonReport.put("userMetaData", userLogs);
@@ -118,12 +132,11 @@ public class GenerateReportJson {
 
     public void getTestResultsAndQuitDriver(IInvokedMethod method, ITestResult testResult) {
         ScreenShotManager screenShotManager = new ScreenShotManager();
-        HashMap<String,String> logs = new HashMap<>();
+        HashMap<String, String> logs = new HashMap<>();
         JSONObject json = new JSONObject();
         json.put("id", DeviceManager.getDeviceUDID());
         json.put("version", new DeviceManager().getDeviceVersion());
         json.put("platform", DeviceManager.getMobilePlatform());
-        //json.put("resolution", DeviceManager.getMobilePlatform());
         try {
             json.put("model", new DeviceManager().getDeviceModel());
         } catch (InterruptedException e) {
@@ -134,7 +147,7 @@ public class GenerateReportJson {
         try {
             if (testResult.getStatus() == ITestResult.SUCCESS
                     || testResult.getStatus() == ITestResult.FAILURE) {
-                if(testResult.getStatus() == ITestResult.FAILURE) {
+                if (testResult.getStatus() == ITestResult.FAILURE) {
                     screenShotManager.captureScreenShot(2,
                             testResult.getClass().getSimpleName(),
                             testResult.getMethod().getMethodName());
@@ -142,21 +155,22 @@ public class GenerateReportJson {
                     if (new File(System.getProperty("user.dir")
                             + "/target/" + screenShotManager.getFailedScreen()).exists()) {
                         screenShotFailure = screenShotManager.getFailedScreen();
-                        logs.put("screenShotFailure",screenShotFailure);
+                        logs.put("screenShotFailure", screenShotFailure);
                     } else if (new File(System.getProperty("user.dir")
                             + "/target/" + screenShotManager.getFramedFailedScreen()).exists()) {
                         screenShotFailure = screenShotManager.getFramedFailedScreen();
-                        logs.put("screenShotFailure",screenShotFailure);
+                        logs.put("screenShotFailure", screenShotFailure);
                     }
                 }
                 String testDescription;
-                String description = method.getTestMethod().getMethod().getAnnotation(Test.class).description();
+                String description = method.getTestMethod().getMethod()
+                        .getAnnotation(Test.class).description();
                 if (description.isEmpty()) {
                     testDescription = method.getTestMethod().getMethodName();
                 } else {
                     testDescription = description;
                 }
-                JSONObject status = getStatus(json,logs,
+                JSONObject status = getStatus(json, logs,
                         getExecutionStatus(testResult),
                         String.valueOf(testResult.getThrowable()),
                         testDescription,
@@ -193,7 +207,7 @@ public class GenerateReportJson {
         return getResultsSummary(results);
     }
 
-    private void sync(String message) {
+    public void sync(String message) {
         //Adding elements to synchronized ArrayList
         syncal.add(message);
     }
