@@ -95,7 +95,7 @@ public class DesiredCapabilityBuilder {
                 desiredCapabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,
                         AutomationName.ANDROID_UIAUTOMATOR2);
                 desiredCapabilities.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT,
-                        Integer.parseInt(port.toString()));
+                        new AvailablePorts().getPort());
             }
             appPackage(desiredCapabilities);
         } else if (AppiumDeviceManager.getMobilePlatform().equals(MobilePlatform.IOS)) {
