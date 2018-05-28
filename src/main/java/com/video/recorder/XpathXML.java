@@ -1,5 +1,6 @@
 package com.video.recorder;
 
+import com.appium.filelocations.FileLocations;
 import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
@@ -19,14 +20,16 @@ import javax.xml.xpath.XPathFactory;
  * Created by saikrisv on 2016/11/07.
  */
 public class XpathXML {
-    public String parseXML(int threadNumber)
-        throws ParserConfigurationException, IOException, SAXException, XPathExpressionException {
+
+    public static final String PARALLEL_FILE_LOCATION = FileLocations.PARALLEL_XML_LOCATION;
+
+    public String parseXML(int threadNumber) {
         try {
             File inputFile = new File(
-                System.getProperty("user.dir") + "/target/parallel.xml");
+                    System.getProperty("user.dir") + PARALLEL_FILE_LOCATION);
             if (inputFile.exists()) {
                 DocumentBuilderFactory dbFactory
-                    = DocumentBuilderFactory.newInstance();
+                        = DocumentBuilderFactory.newInstance();
                 DocumentBuilder dBuilder;
 
                 dBuilder = dbFactory.newDocumentBuilder();
@@ -38,18 +41,12 @@ public class XpathXML {
 
                 String expression = "/suite/test/parameter";
                 NodeList nodeList = (NodeList) xPath.compile(expression)
-                    .evaluate(doc, XPathConstants.NODESET);
+                        .evaluate(doc, XPathConstants.NODESET);
                 String value = nodeList.item(threadNumber).getAttributes().getNamedItem("value")
-                    .getNodeValue();
+                        .getNodeValue();
                 return value;
             }
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (XPathExpressionException e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
         return null;

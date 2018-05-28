@@ -2,6 +2,7 @@ package com.cucumber.listener;
 
 import com.appium.android.AndroidDeviceConfiguration;
 import com.appium.entities.MobilePlatform;
+import com.appium.filelocations.FileLocations;
 import com.appium.ios.IOSDeviceConfiguration;
 import com.appium.manager.AppiumDeviceManager;
 import com.appium.manager.AppiumDriverManager;
@@ -121,14 +122,8 @@ public class ExtentCucumberFormatter implements Reporter, Formatter,ISuiteListen
                 deviceModel = androidDevice.getDeviceModel();
                 screenShotAndFrame(failed_StepName, scrFile, "android");
             } else if (AppiumDeviceManager.getMobilePlatform().equals(MobilePlatform.IOS)) {
-                try {
-                    deviceModel =
-                            iosDevice.getIOSDeviceProductTypeAndVersion();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                deviceModel =
+                        AppiumDeviceManager.getAppiumDevice().getDevice().getDeviceModel();
                 screenShotAndFrame(failed_StepName, scrFile, "iPhone");
             }
             try {
@@ -172,23 +167,14 @@ public class ExtentCucumberFormatter implements Reporter, Formatter,ISuiteListen
         String[] tagsArray = getTagArray(feature.getTags());
         String tags = String.join(",", tagsArray);
         if (prop.getProperty("RUNNER").equalsIgnoreCase("parallel")) {
-            deviceAllocationManager.getNextAvailableDeviceId();
             String[] deviceThreadNumber = Thread.currentThread().getName().toString().split("_");
             System.out.println(deviceThreadNumber);
             System.out.println("Feature Tag Name::" + feature.getTags());
             try {
-
-                if (prop.getProperty("CI_BASE_URI") != null) {
-                    CI_BASE_URI = prop.getProperty("CI_BASE_URI").toString().trim();
-                } else if (CI_BASE_URI == null || CI_BASE_URI.isEmpty()) {
-                    CI_BASE_URI = System.getProperty("user.dir");
-                }
-                String device = xpathXML.parseXML(Integer
-                        .parseInt(deviceThreadNumber[1]));
+                //Broken needs a fix
                 deviceAllocationManager.allocateDevice(
-                    device,
-                    AppiumDeviceManager.getDeviceUDID());
-                if (AppiumDeviceManager.getDeviceUDID() == null) {
+                        deviceAllocationManager.getNextAvailableDevice());
+                if (AppiumDeviceManager.getAppiumDevice().getDevice().getUdid() == null) {
                     System.out.println("No devices are free to run test "
                             + "or Failed to run childTest");
                 }
@@ -199,8 +185,7 @@ public class ExtentCucumberFormatter implements Reporter, Formatter,ISuiteListen
             }
         } else {
             try {
-                deviceAllocationManager.allocateDevice("",
-                    deviceSingleton.getDeviceUDID());
+                deviceAllocationManager.allocateDevice(AppiumDeviceManager.getAppiumDevice());
                 reportManager.createParentNodeExtent(feature.getName(),"")
                         .assignCategory(tags);
                 //appiumServerManager.startAppiumServer();
@@ -289,8 +274,9 @@ public class ExtentCucumberFormatter implements Reporter, Formatter,ISuiteListen
             File framePath =
                     new File(System.getProperty("user.dir") + "/src/test/resources/frames/");
             FileUtils.copyFile(scrFile, new File(
-                    System.getProperty("user.dir") + "/target/screenshot/" + device + "/"
-                            + AppiumDeviceManager.getDeviceUDID()
+                    System.getProperty("user.dir")
+                            + FileLocations.SCREENSHOTS_DIRECTORY + device + "/"
+                            + AppiumDeviceManager.getAppiumDevice().getDevice().getUdid()
                             + "/" + deviceModel
                             + "/failed_" + failed_StepName.replaceAll(" ", "_") + ".jpeg"));
             File[] files1 = framePath.listFiles();
@@ -305,14 +291,17 @@ public class ExtentCucumberFormatter implements Reporter, Formatter,ISuiteListen
                                 imageUtils.wrapDeviceFrames(
                                         files1[i].toString(),
                                         System.getProperty("user.dir")
-                                                + "/target/screenshot/" + device
-                                                + "/" + AppiumDeviceManager.getDeviceUDID()
+                                                + FileLocations.SCREENSHOTS_DIRECTORY + device
+                                                + "/" + AppiumDeviceManager.getAppiumDevice()
+                                                .getDevice().getUdid()
                                                 .replaceAll("\\W", "_") + "/"
                                                 + deviceModel + "/failed_"
                                                 + failed_StepName.replaceAll(" ", "_") + ".jpeg",
                                         System.getProperty("user.dir")
-                                                + "/target/screenshot/" + device
-                                                + "/" + AppiumDeviceManager.getDeviceUDID()
+                                                + FileLocations.SCREENSHOTS_DIRECTORY
+                                                + device
+                                                + "/" + AppiumDeviceManager.getAppiumDevice()
+                                                .getDevice().getUdid()
                                                 .replaceAll("\\W", "_") + "/"
                                                 + deviceModel + "/failed_"
                                                 + failed_StepName.replaceAll(" ", "_")
@@ -342,24 +331,27 @@ public class ExtentCucumberFormatter implements Reporter, Formatter,ISuiteListen
             platform = "iPhone";
         }
         File framedImageAndroid = new File(
-                System.getProperty("user.dir") + "/target/screenshot/" + platform + "/"
-                        + AppiumDeviceManager.getDeviceUDID() + "/" + deviceModel
+                System.getProperty("user.dir")
+                        + FileLocations.SCREENSHOTS_DIRECTORY
+                        + platform + "/"
+                        + AppiumDeviceManager.getAppiumDevice()
+                        .getDevice().getUdid() + "/" + deviceModel
                         + "/failed_" + stepName.replaceAll(" ", "_") + "_framed.jpeg");
         if (framedImageAndroid.exists()) {
             reportManager.childTest.get().log(Status.INFO,
                     "Snapshot below: " + ExtentTestManager.getTest().addScreenCaptureFromPath(
                             System.getProperty("user.dir")
-                                    + "/target/screenshot/"
+                                    + FileLocations.SCREENSHOTS_DIRECTORY
                                     + platform + "/"
-                                    + AppiumDeviceManager.getDeviceUDID()
+                                    + AppiumDeviceManager.getAppiumDevice().getDevice().getUdid()
                                     + "/" + deviceModel
                                     + "/failed_" + stepName.replaceAll(" ", "_") + "_framed.jpeg"));
         } else {
             reportManager.childTest.get().log(Status.INFO,
                     "Snapshot below: " + ExtentTestManager.getTest().addScreenCaptureFromPath(
-                            System.getProperty("user.dir") + "/target/screenshot/"
+                            System.getProperty("user.dir") + FileLocations.SCREENSHOTS_DIRECTORY
                                     + platform + "/"
-                                    + AppiumDeviceManager.getDeviceUDID()
+                                    + AppiumDeviceManager.getAppiumDevice().getDevice().getUdid()
                                     + "/" + deviceModel
                                     + "/failed_" + stepName.replaceAll(" ", "_") + ".jpeg"));
         }

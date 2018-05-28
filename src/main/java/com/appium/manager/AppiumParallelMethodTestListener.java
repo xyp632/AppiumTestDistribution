@@ -3,7 +3,6 @@ package com.appium.manager;
 import com.annotation.values.Description;
 import com.annotation.values.SkipIf;
 import com.appium.utils.Retry;
-import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.report.factory.ExtentManager;
 import com.report.factory.ExtentTestManager;
@@ -25,8 +24,8 @@ public final class AppiumParallelMethodTestListener
     private ReportManager reportManager;
     private DeviceAllocationManager deviceAllocationManager;
     private ConfigFileManager prop;
-    public AppiumServerManager appiumServerManager;
-    public String testDescription = "";
+    private AppiumServerManager appiumServerManager;
+    private String testDescription = "";
     private AppiumDriverManager appiumDriverManager;
 
     public AppiumParallelMethodTestListener() throws Exception {
@@ -44,6 +43,11 @@ public final class AppiumParallelMethodTestListener
     @Override
     public void beforeInvocation(IInvokedMethod method, ITestResult testResult) {
         SkipIf skip = getSkipIf(method);
+        isSkip(skip);
+
+    }
+
+    static void isSkip(SkipIf skip) {
         if (skip != null) {
             String info = skip.platform();
             if (AppiumDriverManager.getDriver().getPlatformName().contains(info)) {
@@ -51,22 +55,6 @@ public final class AppiumParallelMethodTestListener
                 throw new SkipException("Skipped because property was set to :::" + info);
             }
         }
-        try {
-            String className = testResult.getMethod().getRealClass().getSimpleName()
-                    + "-------" + method.getTestMethod().getMethodName();
-            if (getClass().getAnnotation(Description.class) != null) {
-                testDescription = getClass().getAnnotation(Description.class).value();
-            }
-            reportManager.createParentNodeExtent(className, testDescription);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        try {
-            reportManager.setAuthorName(testResult);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
     }
 
     private SkipIf getSkipIf(IInvokedMethod method) {
@@ -77,20 +65,34 @@ public final class AppiumParallelMethodTestListener
 
     @Override
     public void afterInvocation(IInvokedMethod method, ITestResult testResult) {
-        if (testResult.getStatus() == ITestResult.SKIP) {
-            ExtentTestManager.extent.removeTest(ExtentTestManager.getTest());
-        }
+
         try {
             if (testResult.getStatus() == ITestResult.SUCCESS
                     || testResult.getStatus() == ITestResult.FAILURE) {
+                try {
+                    String className = testResult.getMethod().getRealClass().getSimpleName()
+                            + "-------" + method.getTestMethod().getMethodName();
+                    if (getClass().getAnnotation(Description.class) != null) {
+                        testDescription = getClass().getAnnotation(Description.class).value();
+                    }
+                    reportManager.createParentNodeExtent(className, testDescription);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                reportManager.setAuthorName(testResult);
+
                 reportManager.endLogTestResults(testResult);
             }
-            appiumDriverManager.stopAppiumDriver();
-            ExtentManager.getExtent().flush();
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            ExtentManager.getExtent().flush();
             deviceAllocationManager.freeDevice();
+            try {
+                appiumDriverManager.stopAppiumDriver();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -98,8 +100,8 @@ public final class AppiumParallelMethodTestListener
     public void onTestStart(ITestResult iTestResult) {
         try {
             System.out.println(Thread.currentThread().getId());
-            deviceAllocationManager.allocateDevice("",
-                    deviceAllocationManager.getNextAvailableDeviceId());
+            deviceAllocationManager.allocateDevice(deviceAllocationManager
+                    .getNextAvailableDevice());
             appiumDriverManager.startAppiumDriverInstance();
             reportManager.startLogResults(iTestResult.getMethod().getMethodName(),
                     iTestResult.getTestClass().getRealClass().getSimpleName());
@@ -159,9 +161,7 @@ public final class AppiumParallelMethodTestListener
     public void onFinish(ISuite iSuite) {
         try {
             appiumServerManager.stopAppiumServer();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (InterruptedException e) {
+        } catch (IOException | InterruptedException e) {
             e.printStackTrace();
         }
     }

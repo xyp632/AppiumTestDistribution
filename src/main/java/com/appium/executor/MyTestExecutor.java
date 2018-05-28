@@ -1,10 +1,11 @@
 package com.appium.executor;
 
 import com.appium.cucumber.report.HtmlReporter;
+import com.appium.filelocations.FileLocations;
 import com.appium.manager.ConfigFileManager;
 import com.appium.manager.DeviceAllocationManager;
 import com.appium.manager.PackageUtil;
-import com.appium.manager.ParallelThread;
+import com.appium.utils.AppiumDevice;
 import org.junit.runner.JUnitCore;
 import org.junit.runner.Result;
 import org.junit.runner.notification.Failure;
@@ -41,8 +42,11 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
+import static com.appium.manager.FigletHelper.figlet;
+
 
 public class MyTestExecutor {
+
     private final ConfigFileManager prop;
     private final DeviceAllocationManager deviceAllocationManager;
     public List<Class> testcases = new ArrayList<>();
@@ -58,7 +62,6 @@ public class MyTestExecutor {
     }
 
     @SuppressWarnings("rawtypes")
-
     public boolean[] distributeTests(int deviceCount) {
         final boolean[] hasFailures = {false};
         try {
@@ -97,14 +100,26 @@ public class MyTestExecutor {
 
     public boolean runMethodParallelAppium(List<String> test, String pack, int devicecount,
                                            String executionType) throws Exception {
-        URL newUrl = null;
+        URL newUrl;
         List<URL> newUrls = new ArrayList<>();
         Collections.addAll(items, pack.split("\\s*,\\s*"));
         int a = 0;
         Collection<URL> urls = ClasspathHelper.forPackage(items.get(a));
         Iterator<URL> iter = urls.iterator();
-        URL url = iter.next();
-        urls.clear();
+
+        URL url = null;
+
+        while (iter.hasNext()) {
+            url = iter.next();
+            if (url.toString().contains("test-classes")) {
+                break;
+            }
+        }
+
+        if (url == null) {
+            new RuntimeException("Please specify the package name containing tests");
+        }
+
         for (int i = 0; i < items.size(); i++) {
             newUrl = new URL(url.toString() + items.get(i).replaceAll("\\.", "/"));
             newUrls.add(newUrl);
@@ -137,7 +152,7 @@ public class MyTestExecutor {
             hasFailure = runMethodParallel();
         }
         System.out.println("Finally complete");
-        ParallelThread.figlet("Test Completed");
+        figlet("Test Completed");
         //ImageUtils.creatResultsSet();
         //ImageUtils.createJSonForHtml();
         return hasFailure;
@@ -154,7 +169,7 @@ public class MyTestExecutor {
     public boolean runMethodParallel() {
         TestNG testNG = new TestNG();
         List<String> suites = Lists.newArrayList();
-        suites.add(System.getProperty("user.dir") + "/target/parallel.xml");
+        suites.add(System.getProperty("user.dir") + FileLocations.PARALLEL_XML_LOCATION);
         testNG.setTestSuites(suites);
         testNG.run();
         return testNG.hasFailure();
@@ -162,7 +177,8 @@ public class MyTestExecutor {
 
     public XmlSuite constructXmlSuiteForParallel(String pack, List<String> testcases,
                                                  Map<String, List<Method>> methods,
-                                                 int deviceCount, ArrayList<String> deviceSerail) {
+                                                 int deviceCount,
+                                                 List<AppiumDevice> deviceSerail) {
         ArrayList<String> listeners = new ArrayList<>();
         listeners.add("com.appium.manager.AppiumParallelTestListener");
         listeners.add("com.appium.utils.RetryListener");
@@ -180,19 +196,19 @@ public class MyTestExecutor {
             XmlTest test = new XmlTest(suite);
             test.setName("TestNG Test" + i);
             test.setPreserveOrder("false");
-            test.addParameter("device", deviceSerail.get(i));
+            test.addParameter("device", deviceSerail.get(i).getDevice().getUdid());
+            test.addParameter("hostName", deviceSerail.get(i).getHostName());
             test.setIncludedGroups(groupsInclude);
             test.setExcludedGroups(groupsExclude);
             List<XmlClass> xmlClasses = new ArrayList<>();
             writeXmlClass(testcases, methods, xmlClasses);
             test.setXmlClasses(xmlClasses);
         }
-        System.out.println(suite.toXml());
         writeTestNGFile(suite);
         return suite;
     }
 
-    public List<XmlClass> writeXmlClass(List<String> testcases, Map<String,
+    private List<XmlClass> writeXmlClass(List<String> testcases, Map<String,
             List<Method>> methods, List<XmlClass> xmlClasses) {
         for (String className : methods.keySet()) {
             if (className.contains("Test")) {
@@ -239,7 +255,6 @@ public class MyTestExecutor {
         List<XmlClass> xmlClasses = new ArrayList<>();
         writeXmlClass(tests, methods, xmlClasses);
         test.setXmlClasses(xmlClasses);
-        System.out.println(suite.toXml());
         writeTestNGFile(suite);
         return suite;
     }
@@ -275,7 +290,6 @@ public class MyTestExecutor {
             writeXml.add(new XmlClass(xmlClasses.get(i).getName()));
             test.setClasses(writeXml);
         }
-        System.out.println(suite.toXml());
         writeTestNGFile(suite);
         return suite;
     }
@@ -283,7 +297,7 @@ public class MyTestExecutor {
     private void writeTestNGFile(XmlSuite suite) {
         try {
             FileWriter writer = new FileWriter(new File(
-                    System.getProperty("user.dir") + "/target/parallel.xml"));
+                    System.getProperty("user.dir") + FileLocations.PARALLEL_XML_LOCATION));
             writer.write(suite.toXml());
             writer.flush();
             writer.close();
@@ -292,7 +306,7 @@ public class MyTestExecutor {
         }
     }
 
-    public void include(ArrayList<String> groupsInclude, String include) {
+    private void include(ArrayList<String> groupsInclude, String include) {
         if (prop.getProperty(include) != null) {
             Collections.addAll(groupsInclude, prop.getProperty(include).split("\\s*,\\s*"));
         } else if (System.getenv(include) != null) {
@@ -341,7 +355,7 @@ public class MyTestExecutor {
         }
     }
 
-    public void deleteOutputDirectory() {
+    private void deleteOutputDirectory() {
         File delete_output = new File(System.getProperty("user.dir")
                 + "/src/test/java/output/");
         File[] files = delete_output.listFiles();
@@ -351,7 +365,7 @@ public class MyTestExecutor {
     }
 
     public XmlSuite constructXmlSuiteForParallelCucumber(
-            int deviceCount, ArrayList<String> deviceSerail) {
+            int deviceCount, List<AppiumDevice> deviceSerail) {
         ArrayList<String> listeners = new ArrayList<>();
         listeners.add("com.cucumber.listener.ExtentCucumberFormatter");
         XmlSuite suite = new XmlSuite();
@@ -364,10 +378,10 @@ public class MyTestExecutor {
             XmlTest test = new XmlTest(suite);
             test.setName("TestNG Test" + i);
             test.setPreserveOrder("false");
-            test.addParameter("device", deviceSerail.get(i));
+            test.addParameter("device", deviceSerail.get(i).getDevice().getUdid());
             test.setPackages(getPackages());
         }
-        File file = new File(System.getProperty("user.dir") + "/target/parallel.xml");
+        File file = new File(System.getProperty("user.dir") + FileLocations.PARALLEL_XML_LOCATION);
         FileWriter fw = null;
         try {
             fw = new FileWriter(file.getAbsoluteFile());
@@ -402,7 +416,7 @@ public class MyTestExecutor {
         test.setName("TestNG Test");
         test.addParameter("device", "");
         test.setPackages(getPackages());
-        File file = new File(System.getProperty("user.dir") + "/target/parallel.xml");
+        File file = new File(System.getProperty("user.dir") + FileLocations.PARALLEL_XML_LOCATION);
         FileWriter fw = null;
         try {
             fw = new FileWriter(file.getAbsoluteFile());
@@ -423,7 +437,7 @@ public class MyTestExecutor {
         return suite;
     }
 
-    public static List<XmlPackage> getPackages() {
+    private static List<XmlPackage> getPackages() {
         List<XmlPackage> allPackages = new ArrayList<>();
         XmlPackage eachPackage = new XmlPackage();
         eachPackage.setName("output");

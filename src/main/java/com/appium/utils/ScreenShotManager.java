@@ -2,7 +2,7 @@ package com.appium.utils;
 
 import com.appium.android.AndroidDeviceConfiguration;
 import com.appium.entities.MobilePlatform;
-import com.appium.ios.IOSDeviceConfiguration;
+import com.appium.filelocations.FileLocations;
 import com.appium.manager.AppiumDeviceManager;
 import com.appium.manager.AppiumDriverManager;
 import org.apache.commons.io.FileUtils;
@@ -16,7 +16,9 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
+import java.util.Locale;
 
 /**
  * Created by saikrisv on 26/04/17.
@@ -98,42 +100,43 @@ public class ScreenShotManager {
         if (AppiumDeviceManager.getMobilePlatform().equals(MobilePlatform.ANDROID)) {
             deviceModel = new AndroidDeviceConfiguration().getDeviceModel();
         } else if (AppiumDeviceManager.getMobilePlatform().equals(MobilePlatform.IOS)) {
-            deviceModel = new IOSDeviceConfiguration().getIOSDeviceProductTypeAndVersion();
+            deviceModel = AppiumDeviceManager.getAppiumDevice().getDevice().getDeviceModel();
         }
         captureScreenShot(1, className, screenShotName, deviceModel);
     }
 
 
     private String currentDateAndTime() {
-        LocalDateTime now = LocalDateTime.now();
-        DateTimeFormatter dtf = DateTimeFormatter.ISO_DATE_TIME;
-        return now.truncatedTo(ChronoUnit.SECONDS).format(dtf);
+        LocalDateTime rightNow = LocalDateTime.now();
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofLocalizedDateTime(
+                FormatStyle.MEDIUM).withLocale(Locale.getDefault());
+        return dateTimeFormatter.format(rightNow).replaceAll("[- .:,]", "_");
     }
-
 
     private void screenShotAndFrame(int status,
                                     File scrFile, String methodName,
                                     String className, String model,
                                     String platform, String deviceModel) {
+        String udid = AppiumDeviceManager.getAppiumDevice().getDevice().getUdid();
         setFailedScreen(
-                  "screenshot/" + platform + "/" + AppiumDeviceManager.getDeviceUDID()
+                "screenshot/" + platform + "/" + udid
                         + "/" + className + "/"
                         + methodName + "/"
                         + screenShotNameWithTimeStamp + deviceModel + "_"
                         + methodName + "_failed" + ".jpeg");
         setCapturedScreen(
-                "screenshot/" + platform + "/" + AppiumDeviceManager.getDeviceUDID()
+                "screenshot/" + platform + "/" + udid
                         + "/" + className
                         + "/" + methodName + "/"
                         + screenShotNameWithTimeStamp + deviceModel + "_"
                         + methodName + "_results.jpeg");
 
-        setFramedCapturedScreen("screenshot/" + platform + "/" + AppiumDeviceManager.getDeviceUDID()
-                        + "/" + className
-                        + "/" + methodName + "/" + model + "_"
-                        + methodName + "_results_framed.jpeg");
+        setFramedCapturedScreen("screenshot/" + platform + "/" + udid
+                + "/" + className
+                + "/" + methodName + "/" + model + "_"
+                + methodName + "_results_framed.jpeg");
         setFramedFailedScreen(
-                "screenshot/" + platform + "/" + AppiumDeviceManager.getDeviceUDID()
+                "screenshot/" + platform + "/" + udid
                         + "/" + className
                         + "/" + methodName + "/" + model
                         + "_failed_" + methodName + "_framed.jpeg");
@@ -144,10 +147,10 @@ public class ScreenShotManager {
                             + "/src/test/resources/frames/");
             if (status == ITestResult.FAILURE) {
                 FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")
-                        + "/target/" + getFailedScreen().trim()));
+                        + FileLocations.OUTPUT_DIRECTORY + getFailedScreen().trim()));
             } else {
                 FileUtils.copyFile(scrFile, new File(System.getProperty("user.dir")
-                        + "/target/" + getCapturedScreen().trim()));
+                        + FileLocations.OUTPUT_DIRECTORY + getCapturedScreen().trim()));
             }
 
             File[] files1 = framePath.listFiles();
@@ -163,17 +166,19 @@ public class ScreenShotManager {
                             try {
                                 if (status == ITestResult.FAILURE) {
                                     String screenToFrame = System.getProperty("user.dir")
-                                            + "/target/" + getFailedScreen();
+                                            + FileLocations.OUTPUT_DIRECTORY + getFailedScreen();
                                     imageUtils.wrapDeviceFrames(files1[i].toString(), screenToFrame,
                                             System.getProperty("user.dir")
-                                                    + "/target/" + getFramedFailedScreen());
+                                                    + FileLocations.OUTPUT_DIRECTORY
+                                                    + getFramedFailedScreen());
                                     deleteFile(screenToFrame);
                                 } else {
                                     String screenToFrame = System.getProperty("user.dir")
-                                            + "/target/" + getCapturedScreen();
+                                            + FileLocations.OUTPUT_DIRECTORY + getCapturedScreen();
                                     imageUtils.wrapDeviceFrames(files1[i].toString(), screenToFrame,
                                             System.getProperty("user.dir")
-                                                    + "/target/" +  getFramedCapturedScreen());
+                                                    + FileLocations.OUTPUT_DIRECTORY
+                                                    + getFramedCapturedScreen());
                                     deleteFile(screenToFrame);
                                 }
 

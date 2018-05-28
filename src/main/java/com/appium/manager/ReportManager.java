@@ -3,7 +3,6 @@ package com.appium.manager;
 import com.annotation.values.Author;
 import com.appium.utils.GetDescriptionForChildNode;
 import com.aventstack.extentreports.ExtentTest;
-import com.aventstack.extentreports.Status;
 import com.report.factory.ExtentTestManager;
 import org.testng.ITestResult;
 import org.testng.annotations.Test;
@@ -29,12 +28,12 @@ public class ReportManager {
     public String category = null;
 
 
-    public ReportManager() {
+    public ReportManager() throws IOException {
         testLogger = new TestLogger();
         appiumDeviceManager = new AppiumDeviceManager();
     }
 
-    public void startLogResults(String methodName,String className) throws FileNotFoundException {
+    public void startLogResults(String methodName, String className) throws FileNotFoundException {
         testLogger.startLogging(methodName, className);
     }
 
@@ -44,10 +43,14 @@ public class ReportManager {
     }
 
     public ExtentTest createParentNodeExtent(String methodName, String testDescription)
-        throws IOException, InterruptedException {
+            throws IOException, InterruptedException {
+        String deviceModel = appiumDeviceManager.getDeviceModel();
+        if (deviceModel.equalsIgnoreCase("not supported")) {
+            deviceModel = "";
+        }
         parent = ExtentTestManager.createTest(methodName, testDescription,
-            appiumDeviceManager.getDeviceModel()
-                    + AppiumDeviceManager.getDeviceUDID());
+                deviceModel + "|" + AppiumDeviceManager.getAppiumDevice().getHostName()
+                        + "|" + AppiumDeviceManager.getAppiumDevice().getDevice().getUdid());
         parentTest.set(parent);
         return parent;
     }
@@ -58,48 +61,49 @@ public class ReportManager {
         boolean methodNamePresent;
         ArrayList<String> listeners = new ArrayList<>();
         String description = methodName.getMethod()
-            .getConstructorOrMethod().getMethod()
-            .getAnnotation(Test.class).description();
+                .getConstructorOrMethod().getMethod()
+                .getAnnotation(Test.class).description();
         Object dataParameter = methodName.getParameters();
         if (((Object[]) dataParameter).length > 0) {
             dataProvider = (String) ((Object[]) dataParameter)[0];
         }
         String descriptionMethodName;
         getDescriptionForChildNode = new GetDescriptionForChildNode(methodName, description)
-            .invoke();
+                .invoke();
         methodNamePresent = getDescriptionForChildNode.isMethodNamePresent();
         descriptionMethodName = getDescriptionForChildNode.getDescriptionMethodName();
         if (System.getProperty("os.name").toLowerCase().contains("mac")
                 && System.getenv("Platform").equalsIgnoreCase("iOS")
-                    || System.getenv("Platform")
-                         .equalsIgnoreCase("Both")) {
+                || System.getenv("Platform")
+                .equalsIgnoreCase("Both")) {
             category = appiumDeviceManager.getDeviceCategory();
         } else {
             category = appiumDeviceManager.getDeviceModel();
         }
         String testName = dataProvider == null ? descriptionMethodName
                 : descriptionMethodName + "[" + dataProvider + "]";
+        String udid = AppiumDeviceManager.getAppiumDevice().getDevice().getUdid();
         if (methodNamePresent) {
             authorName = methodName.getMethod()
-                .getConstructorOrMethod().getMethod()
-                .getAnnotation(Author.class).name();
+                    .getConstructorOrMethod().getMethod()
+                    .getAnnotation(Author.class).name();
             Collections.addAll(listeners, authorName.split("\\s*,\\s*"));
             child = parentTest.get()
-                .createNode(testName,
-                    category + "_" + AppiumDeviceManager.getDeviceUDID()).assignAuthor(
-                    String.valueOf(listeners));
+                    .createNode(testName,
+                            category + "_" + udid).assignAuthor(
+                            String.valueOf(listeners));
             childTest.set(child);
         } else {
             child = parentTest.get().createNode(testName,
-                category + "_" + AppiumDeviceManager.getDeviceUDID());
+                    category + "_" + udid);
             childTest.set(child);
         }
     }
 
     public void createChildNodeWithCategory(String methodName,
-        String tags) {
+                                            String tags) {
         child = parentTest.get().createNode(methodName, category
-            + AppiumDeviceManager.getDeviceUDID()).assignCategory(tags);
+                + AppiumDeviceManager.getAppiumDevice().getDevice().getUdid()).assignCategory(tags);
         childTest.set(child);
     }
 }

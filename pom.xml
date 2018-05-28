@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>com.github.saikrishna321</groupId>
     <artifactId>AppiumTestDistribution</artifactId>
-    <version>7.0.3</version>
+    <version>8.0.0</version>
     <packaging>jar</packaging>
 
     <name>AppiumTestDistribution</name>
@@ -52,7 +52,7 @@
         <dependency>
             <groupId>io.appium</groupId>
             <artifactId>java-client</artifactId>
-            <version>6.0.0-BETA1</version>
+            <version>6.0.0-BETA3</version>
             <exclusions>
                 <exclusion>
                     <groupId>com.google.guava</groupId>
@@ -70,11 +70,7 @@
             <artifactId>guava</artifactId>
             <version>23.0</version>
         </dependency>
-        <dependency>
-            <groupId>com.googlecode.json-simple</groupId>
-            <artifactId>json-simple</artifactId>
-            <version>1.1</version>
-        </dependency>
+        <!-- https://mvnrepository.com/artifact/net.sf.json-lib/json-lib -->
         <dependency>
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
@@ -146,15 +142,37 @@
             <version>1.69</version>
         </dependency>
         <dependency>
-            <groupId>com.github.SrinivasanTarget</groupId>
-            <artifactId>DeviceManager</artifactId>
-            <version>fc20b7c8a3</version>
+	    <groupId>com.github.SrinivasanTarget</groupId>
+	    <artifactId>DeviceManager</artifactId>
+	    <version>90eec48</version>
         </dependency>
         <dependency>
             <groupId>com.github.yunusmete.stf</groupId>
             <artifactId>openstf-java-client</artifactId>
             <version>1.0</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>io.appium</groupId>
+                    <artifactId>java-client</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.squareup.okhttp</groupId>
+                    <artifactId>okhttp</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
+        <dependency>
+            <groupId>com.squareup.okhttp3</groupId>
+            <artifactId>okhttp</artifactId>
+            <version>3.9.1</version>
+        </dependency>
+        <!-- https://mvnrepository.com/artifact/org.json/json -->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20171018</version>
+        </dependency>
+
     </dependencies>
 
     <distributionManagement>

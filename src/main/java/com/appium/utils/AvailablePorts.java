@@ -1,18 +1,14 @@
 package com.appium.utils;
 
-import java.net.ServerSocket;
+import com.appium.manager.AppiumManagerFactory;
+import com.appium.manager.IAppiumManager;
+
+import java.io.IOException;
 
 public class AvailablePorts {
 
-    /*
-     * Generates Random ports
-     * Used during starting appium server
-     */
-    public int getPort() throws Exception {
-        ServerSocket socket = new ServerSocket(0);
-        socket.setReuseAddress(true);
-        int port = socket.getLocalPort();
-        socket.close();
-        return port;
+    public int getAvailablePort(String hostMachine) throws IOException {
+        IAppiumManager appiumManager = AppiumManagerFactory.getAppiumManager(hostMachine);
+        return appiumManager.getAvailablePort(hostMachine);
     }
 }
